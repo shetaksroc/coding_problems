@@ -42,6 +42,12 @@ public class Robot extends RobotActions {
         else if(this.direction=='R' && direction=='L'){
             setMovementAndDirection('N');
         }
+        else if(this.direction=='D' && direction=='L'){
+            setMovementAndDirection('L');
+        }
+        else if(this.direction=='D' && direction=='R'){
+            setMovementAndDirection('R');
+        }
     }
 
     private void setMovementAndDirection(char d) {
