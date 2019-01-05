@@ -3,50 +3,50 @@ package com.example.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.example.constants.Constants.COLORS.*;
+
 @Getter
 @Setter
-public class Robot {
+public class Robot extends RobotActions {
 
     private int posX;
     private int posY;
     private char direction;
     private char movement;
 
-    public void setDirection(char direction) {
-        if(this.direction=='N' && direction=='L'){
-            this.movement='L';
-            this.direction='L';
-        }
-        else if(this.direction=='N' && direction=='R'){
-            this.movement='R';
-            this.direction='R';
-        }
-        else if(this.direction=='L' && direction=='R'){
-            movement='N';
-            this.direction='N';
-        }
-        else if(this.direction=='L' && direction=='L'){
-            movement='D';
-            this.direction='D';
-        }
-        else if(this.direction=='R' && direction=='R'){
-            movement='D';
-            this.direction='D';
-        }
-        else if(this.direction=='R' && direction=='L'){
-            movement='N';
-            this.direction='N';
-        }
-    }
-
-    private char paintingColor;
-
+    // TODO: 05/01/19  Validating colors and directions
     public Robot(int posX, int posY, char direction,char paintingColor) {
+        super(paintingColor);
         this.posX = posY;
         this.posY = posX;
         this.direction=direction;
         this.movement=direction;
-        this.paintingColor=paintingColor;
+    }
+
+    public void setDirection(char direction) {
+        if(this.direction=='N' && direction=='L'){
+            setMovementAndDirection('L');
+        }
+        else if(this.direction=='N' && direction=='R'){
+            setMovementAndDirection('R');
+        }
+        else if(this.direction=='L' && direction=='R'){
+            setMovementAndDirection('N');
+        }
+        else if(this.direction=='L' && direction=='L'){
+            setMovementAndDirection('D');
+        }
+        else if(this.direction=='R' && direction=='R'){
+            setMovementAndDirection('D');
+        }
+        else if(this.direction=='R' && direction=='L'){
+            setMovementAndDirection('N');
+        }
+    }
+
+    private void setMovementAndDirection(char d) {
+        this.movement = d;
+        this.direction = d;
     }
 
     private void upMovement() {
@@ -65,7 +65,7 @@ public class Robot {
         this.posX-=1;
     }
 
-    public void moveRobot() {
+    public void moveRobot() throws Exception {
         switch(this.getMovement()){
             case 'N':
                 upMovement();
@@ -79,6 +79,8 @@ public class Robot {
             case 'D':
                 downMovement();
                 break;
+            default:
+                throw new Exception("Invalid movement");
         }
     }
 }

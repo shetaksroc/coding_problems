@@ -1,5 +1,10 @@
 package com.example.entity;
 
+import com.example.exceptions.IllegalMovementException;
+import com.example.exceptions.InvalidSizeException;
+import lombok.Getter;
+
+@Getter
 public class Wall {
 
     private Grid[][] grid;
@@ -7,11 +12,19 @@ public class Wall {
     private int sizeN;
 
 
-    public Wall(int sizeM, int sizeN) {
+    public Wall(int sizeM, int sizeN) throws InvalidSizeException {
+        validateWallSize(sizeM);
+        validateWallSize(sizeN);
         this.grid=new Grid[sizeM][sizeN];
         this.sizeM=sizeM;
         this.sizeN=sizeN;
         this.init();
+    }
+
+    private void validateWallSize(int size) throws InvalidSizeException {
+        if(size<1){
+            throw new InvalidSizeException();
+        }
     }
 
     private void init() {
@@ -22,26 +35,28 @@ public class Wall {
         }
     }
 
-    public void deployRobot(Robot robot, String movements){
+    public void deployRobot(int posX, int posY, char direction,char paintingColor, String movements) throws Exception {
+        Robot robot =  new Robot(posX,posY,direction,paintingColor);
         for(char m: movements.toCharArray()){
             switch (m){
                 case 'F':
                     robot.moveRobot();
                     break;
                 case 'I':
-                    grid[robot.getPosX()][robot.getPosY()].paint(robot.getPaintingColor());
+                    robot.paint(getGrid()[robot.getPosX()][robot.getPosY()]);
                     break;
-                default:
+                case 'N':
+                case 'L':
+                case 'R':
                     robot.setDirection(m);
                     break;
+                default:
+                    throw new IllegalMovementException("Instruction not identified");
             }
         }
     }
 
-//    0 0 N R
-//    FFRFIFIRFIF
-//
-
+    // TODO: 05/01/19  Make use of Logger
     public void printGrid(){
         for(int i=sizeM-1;i>=0;i--){
             for(int j=0;j<sizeN;j++){
