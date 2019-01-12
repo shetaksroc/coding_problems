@@ -9,3 +9,10 @@ Provide file name as argument -
 
 
 Inline java docs are added for more context
+
+// todo & Future enhancements 
+1. Add more testcases.
+2. Add more debug execution logs.
+3. Expose this service as an REST api. 
+3. Make this an async process. 
+4. Store the logs in centralized location. 
