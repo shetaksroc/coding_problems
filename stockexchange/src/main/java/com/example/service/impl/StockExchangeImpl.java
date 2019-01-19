@@ -127,7 +127,7 @@ public class StockExchangeImpl implements StockExchange {
             return false;
         }
         else if(Integer.parseInt(sellTimeArrray[0])==Integer.parseInt(buyTimeArrray[0])){
-            return Integer.parseInt(sellTimeArrray[1])<Integer.parseInt(buyTimeArrray[1]);
+            return Integer.parseInt(sellTimeArrray[1])<=Integer.parseInt(buyTimeArrray[1]);
         }
         return false;
     }
