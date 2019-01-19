@@ -1,0 +1,5 @@
+1. Tested without any buy
+2. Tested with initial buying
+3. Tested with sell and buy scenario
+4. Tested with sell and buy scenario where the selling price is higher than buy price
+5. Tested with sell and buy scenario where the selling price is lower than buy price
